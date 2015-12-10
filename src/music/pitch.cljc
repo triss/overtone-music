@@ -1,7 +1,6 @@
-(ns ^{:doc "Functions to help generate and manipulate frequencies and
-           sets of related frequencies. This is the place for functions
-           representing general musical knowledge, like scales, chords,
-           intervals, etc."
+(ns ^{:doc "Functions to help generate and manipulate frequencies and sets of
+           related frequencies. This is the place for functions representing
+           general musical knowledge, like scales, chords, intervals, etc."
       :author "Jeff Rose, Sam Aaron & Marius Kempe"}
   music.pitch
   (:require [music.helpers :refer [chop reverse-get choose-n]]
@@ -33,7 +32,7 @@
   a logarithmic measurement of pitch, where 1-octave equals 1200
   cents."
   [freq n-cents]
-  (* freq (java.lang.Math/pow 2 (/ n-cents 1200))))
+  (* freq (Math/pow 2 (/ n-cents 1200))))
 
 ;; MIDI
 (def MIDI-RANGE (range 128))
@@ -573,28 +572,28 @@
 (defn midi->hz
   "Convert a midi note number to a frequency in hz."
   [note]
-  (* 440.0 (java.lang.Math/pow 2.0 (/ (- note 69.0) 12.0))))
+  (* 440.0 (Math/pow 2.0 (/ (- note 69.0) 12.0))))
 
 ; cpsmidi
 (defn hz->midi
   "Convert from a frequency to the nearest midi note number."
   [freq]
-  (java.lang.Math/round (+ 69
+  (Math/round (+ 69
                  (* 12
-                    (/ (java.lang.Math/log (* freq 0.0022727272727))
-                       (java.lang.Math/log 2))))))
+                    (/ (Math/log (* freq 0.0022727272727))
+                       (Math/log 2))))))
 
 ; ampdb
 (defn amp->db
   "Convert linear amplitude to decibels."
   [amp]
-  (* 20 (java.lang.Math/log10 amp)))
+  (* 20 (Math/log10 amp)))
 
 ; dbamp
 (defn db->amp
   "Convert decibels to linear amplitude."
   [db]
-  (java.lang.Math/exp (* (/ db 20) (java.lang.Math/log 10))))
+  (Math/exp (* (/ db 20) (Math/log 10))))
 
 (defn nth-octave
   "Returns the freq n octaves from the supplied reference freq
@@ -602,14 +601,14 @@
    i.e. (nth-ocatve 440 1) will return 880 which is the freq of the
    next octave from 440."
   [freq n]
-  (* freq (java.lang.Math/pow 2 n)))
+  (* freq (Math/pow 2 n)))
 
 (defn nth-equal-tempered-freq
   "Returns the frequency of a given scale interval using an
   equal-tempered tuning i.e. dividing all 12 semi-tones equally across
   an octave. This is currently the standard tuning."
   [base-freq interval]
-  (* base-freq (java.lang.Math/pow 2 (/ interval 12))))
+  (* base-freq (Math/pow 2 (/ interval 12))))
 
 (defn interval-freq
   "Returns the frequency of the given interval using the specified

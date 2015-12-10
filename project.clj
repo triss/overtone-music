@@ -1,6 +1,5 @@
-(defproject overtone/music "0.1.0-SNAPSHOT"
-  :description "FIXME: write description"
-  :url "http://example.com/FIXME"
-  :license {:name "Eclipse Public License"
-            :url "http://www.eclipse.org/legal/epl-v10.html"}
+(defproject music "0.1.0-SNAPSHOT"
+  :description "A Clojure(Script) library with functions and data representing
+               general musical knowledge, like scales, chords, intervals, etc."  
+  :url "https://github.com/triss/overtone-music"
   :dependencies [[org.clojure/clojure "1.7.0"]])

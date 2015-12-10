@@ -3,11 +3,9 @@
     representing general musical knowledge, like scales, chords,
     intervals, etc."
       :author "Jeff Rose, Sam Aaron & Marius Kempe"}
-  overtone.music.pitch
-  (:use [overtone.helpers old-contrib]
-        [overtone.helpers.map :only [reverse-get]]
-        [overtone.algo chance])
-  (:require [clojure.string :as string]))
+  music.pitch
+  (:require [music.helpers :refer [chop reverse-get choose-n]]
+            [clojure.string :as string]))
 
 ;; Notes in a typical scale are related by small, prime number ratios. Of all
 ;; possible 7 note scales, the major scale has the highest number of consonant

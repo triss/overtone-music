@@ -1,7 +1,7 @@
 (ns ^{:doc "Functions to help generate and manipulate frequencies and
-    sets of related frequencies. This is the place for functions
-    representing general musical knowledge, like scales, chords,
-    intervals, etc."
+           sets of related frequencies. This is the place for functions
+           representing general musical knowledge, like scales, chords,
+           intervals, etc."
       :author "Jeff Rose, Sam Aaron & Marius Kempe"}
   music.pitch
   (:require [music.helpers :refer [chop reverse-get choose-n]]
@@ -15,18 +15,18 @@
   `(defn ~rname [freq#] (* freq# ~ratio)))
 
 ; Perfect consonance
-(defratio unison    1/1)
-(defratio octave    2/1)
-(defratio fifth     3/2)
+(defratio unison    (/ 1 1))
+(defratio octave    (/ 2 1))
+(defratio fifth     (/ 3 2))
 
 ; Imperfect consonance
-(defratio sixth     5/3)
-(defratio third     5/4)
-
-; Dissonance
-(defratio fourth    4/3)
-(defratio min-third 6/5)
-(defratio min-sixth 8/5)
+(defratio sixth     (/ 5 3))
+(defratio third     (/ 5 4))
+                        
+; Dissonance            
+(defratio fourth    (/ 4 3))
+(defratio min-third (/ 6 5))
+(defratio min-sixth (/ 8 5))
 
 (defn cents
   "Returns a frequency computed by adding n-cents to freq.  A cent is

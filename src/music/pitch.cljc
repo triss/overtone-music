@@ -3,6 +3,7 @@
            general musical knowledge, like scales, chords, intervals, etc."
       :author "Jeff Rose, Sam Aaron & Marius Kempe"}
   music.pitch
+  #?(:cljs  (:require-macros [music.pitch :refer [defratio]])) 
   (:require [music.helpers :refer [chop reverse-get choose-n]]
             [clojure.string :as string]))
 
@@ -10,8 +11,9 @@
 ;; possible 7 note scales, the major scale has the highest number of consonant
 ;; intervals.
 
-(defmacro defratio [rname ratio]
-  `(defn ~rname [freq#] (* freq# ~ratio)))
+#?(:clj
+    (defmacro defratio [rname ratio]
+      `(defn ~rname [freq#] (* freq# ~ratio))))
 
 ; Perfect consonance
 (defratio unison    (/ 1 1))
@@ -125,7 +127,7 @@
                    " does not appear to be in MIDI format i.e. C#4"))))
 
     (let [[match pictch-class octave] matches]
-      (when (< (Integer. octave) -1)
+      (when (< (int octave) -1)
         (throw (IllegalArgumentException.
                 (str "Invalid midi-string: " mk
                      ". Octave is out of range. Lowest octave value is -1")))))
@@ -137,11 +139,11 @@
   [midi-string]
   (let [[match pitch-class octave] (validate-midi-string! midi-string)
         pitch-class                (canonical-pitch-class-name pitch-class)
-        octave                     (Integer. octave)
+        octave                     (int octave)
         interval                   (NOTES (keyword pitch-class))]
     {:match       match
      :pitch-class pitch-class
-     :octave      (Integer. octave)
+     :octave      (int octave)
      :interval    interval
      :midi-note   (octave-note octave interval)}))
 

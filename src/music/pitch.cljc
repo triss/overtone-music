@@ -416,7 +416,7 @@
   (let [root (note root)]
     (when (nil? root)
       (throw ((#?(:clj IllegalArgumentException. :cljs js/Error.)
-                       (str "root resolved to a nil value. degrees->pitches requires a non-nil root."))))
+                       (str "root resolved to a nil value. degrees->pitches requires a non-nil root.")))))
     (map (fn [degree]
            (cond
             (coll? degree) (degrees->pitches degree scale root)

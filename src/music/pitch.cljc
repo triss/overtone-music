@@ -122,13 +122,13 @@
   [mk]
   (let [matches (midi-string-matcher mk)]
     (when-not matches
-      (throw (IllegalArgumentException.
+      (throw (#?(:clj IllegalArgumentException. :cljs js/Error.)
               (str "Invalid midi-string. " mk
                    " does not appear to be in MIDI format i.e. C#4"))))
 
     (let [[match pictch-class octave] matches]
       (when (< (int octave) -1)
-        (throw (IllegalArgumentException.
+        (throw (#?(:clj IllegalArgumentException. :cljs js/Error.)
                 (str "Invalid midi-string: " mk
                      ". Octave is out of range. Lowest octave value is -1")))))
     matches))
@@ -180,13 +180,13 @@
     (nil? n) nil
     (integer? n) (if (>= n 0)
                    n
-                   (throw (IllegalArgumentException.
-                           (str "Unable to resolve note: "
-                                n
+                   (throw (#?(:clj IllegalArgumentException. :cljs js/Error.)
+                           (str "Unable to resolve note: " n
                                 ". Value is out of range. Lowest value is 0"))))
     (keyword? n) (note (name n))
     (string? n) (:midi-note (note-info n))
-    :else (throw (IllegalArgumentException. (str "Unable to resolve note: " n ". Wasn't a recognised format (either an integer, keyword, string or nil)")))))
+    :else (throw (#?(:clj IllegalArgumentException. :cljs js/Error.)
+                          (str "Unable to resolve note: " n ". Wasn't a recognised format (either an integer, keyword, string or nil)")))))
 
 (defn match-note
   "Returns the first midi-note formatted substring in s. If passed
@@ -360,7 +360,8 @@
   [degree]
   (if (some #{degree} (keys DEGREE))
     (degree DEGREE)
-    (throw (IllegalArgumentException. (str "Unable to resolve degree: " degree ". Was expecting a roman numeral in the range :i -> :vii or the nil-note symbol :_")))))
+    (throw (#?(:clj IllegalArgumentException. :cljs js/Error.)
+                    (str "Unable to resolve degree: " degree ". Was expecting a roman numeral in the range :i -> :vii or the nil-note symbol :_")))))
 
 (defn resolve-degree
   "returns a map representing the degree, and the octave semitone
@@ -414,7 +415,8 @@
   [degrees scale root]
   (let [root (note root)]
     (when (nil? root)
-      (throw (IllegalArgumentException. (str "root resolved to a nil value. degrees->pitches requires a non-nil root."))))
+      (throw ((#?(:clj IllegalArgumentException. :cljs js/Error.)
+                       (str "root resolved to a nil value. degrees->pitches requires a non-nil root."))))
     (map (fn [degree]
            (cond
             (coll? degree) (degrees->pitches degree scale root)
